@@ -16,5 +16,24 @@ class Program
         {
             Console.WriteLine("B");
         }
+
+        else if (70 <= grade)
+        {
+            Console.WriteLine("C");
+        }
+
+        else if (60 <= grade)
+        {
+            Console.WriteLine("D");
+        }
+
+        else Console.WriteLine("F");
+
+        if (grade >= 70)
+        {
+            Console.WriteLine("You passed the class!");
+        }
+
+        else Console.WriteLine("You failed the class. Better luck next time!");
     }
 }
