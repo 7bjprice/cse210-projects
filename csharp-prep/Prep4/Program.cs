@@ -17,7 +17,19 @@ class Program
             number = int.Parse(user_entry);
             numbers.Add(number);
         }
-        foreach (int number in numbers)
-    // iterate through the list to adda  sum
+        float total = 0;
+        int max = 0;
+        foreach (int i in numbers)
+        {
+            total = i + total;
+            if (i >= max)
+            {
+                max = i;
+            }
+        }
+        float average = total / (numbers.Count - 1);
+        Console.WriteLine($"Total: {total}");
+        Console.WriteLine($"Average: {average}");
+        Console.WriteLine($"The largest number is: {max}");
     }
 }
