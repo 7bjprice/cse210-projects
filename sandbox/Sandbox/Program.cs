@@ -5,14 +5,23 @@ class Program
 {
     static void Main(string[] args)
     {
-        static int AwesomeFunction(int x)
-        {
-            return 4 * x + 3;
-        }
-        Console.Write("Enter an integer: ");
-        string x_string = Console.ReadLine();
-        int x = int.Parse(x_string);
-        int y = AwesomeFunction(x);
-        Console.WriteLine(y);
+        Costume nurse = new();
+        nurse.headWear = "face mask";
+        nurse.gloves = "nitrile";
+        nurse.shoes = "orthopedic sneakers";
+        nurse.upperGarment = "scrubs";
+        nurse.lowerGarment = "scrubs";
+        nurse.accessory = "stethoscope";
+
+        Costume detective = new();
+        detective.headWear = "fedora";
+        detective.gloves = "leather";
+        detective.shoes = "loafers";
+        detective.upperGarment = "trench coat";
+        detective.lowerGarment = "slacks";
+        detective.accessory = "magnifying glass";
+
+        nurse.ShowWardrobe();
+        detective.ShowWardrobe();
     }
 }
