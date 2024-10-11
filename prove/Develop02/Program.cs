@@ -1,5 +1,6 @@
-// Written by Troy
-// using System;
+// Added multiple different prompts that can be choses
+// Added a message if there are no journal entries to display
+// Added the time of day to the date stamp on each journal entry
 
 class Program
 {
