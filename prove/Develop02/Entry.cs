@@ -32,7 +32,7 @@ public class Entry
 
     public void Display()
     {
-        Console.WriteLine($"Date - {_timestamp} - Prompt: {_prompt}\n {_body}");
+        Console.WriteLine($"Date - {_timestamp} - Prompt: {_prompt}\n    {_body}\n");
     }
 
     public void DisplayPrompt()

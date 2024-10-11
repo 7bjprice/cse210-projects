@@ -12,7 +12,7 @@ class Program
         Console.WriteLine("Welcome to your journal program!");
         do
         {
-            Console.WriteLine("Please choose what you would like to do.");
+            Console.WriteLine("\nPlease choose what you would like to do.");
             Console.WriteLine("1.Write");
             Console.WriteLine("2.Display");
             Console.WriteLine("3.Load");

@@ -23,7 +23,7 @@ public class Journal
                 entry.Display();
             }
         else
-            Console.WriteLine("There are no journal entries to display.");
+            Console.WriteLine("There are no journal entries to display.\n");
     }
     public void LoadFile()
     {
