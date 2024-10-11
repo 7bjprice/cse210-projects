@@ -31,7 +31,7 @@ public class Journal
         string filename = Console.ReadLine();
 
         string[] lines = System.IO.File.ReadAllLines(filename);
-        for (int i = 1; i < lines.Length; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             string[] parts = lines[i].Split("|");
             Entry newEntry = new Entry();
