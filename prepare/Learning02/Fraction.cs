@@ -23,7 +23,6 @@ public class Fraction
     {
         return _top;
     }
-
     public void SetTop(int top)
     {
         Console.Write("Enter the numerator: ");
@@ -34,7 +33,6 @@ public class Fraction
     {
        return _bottom;
     }
-
     public void SetBottom(int bottom)
     {
         Console.Write("Enter the denominator: ");
