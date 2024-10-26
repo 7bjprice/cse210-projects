@@ -1,5 +1,7 @@
 using System;
 // written by Bryson and Troy
+
+// We added a feature that allows you to choose verses from a text file. You can also add a verse to the text file to read from later. We added a menu that allows the user to choose whether they want to add a verse, choose an existing verse, memorize the chosen vesrse, or quit. The majority of that function is written in an additional class called ReadWrite.
 class Program
 {
     static void Main(string[] args)
