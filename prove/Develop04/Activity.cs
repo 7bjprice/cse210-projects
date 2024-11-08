@@ -4,6 +4,7 @@ public class Activity
     protected string _description;
     protected string _activityName;
     protected int _durationSeconds;
+    protected int _totalDuration = 0;
 
     //methods
     public int GetDuration()
@@ -46,8 +47,9 @@ public class Activity
     public void EndActivity()
     {
         Console.WriteLine("Good job!");
+        _totalDuration += _durationSeconds;
         ShowAnimation();
-        Console.WriteLine($"You have completed another {_durationSeconds} seconds of the {_activityName}!");
+        Console.WriteLine($"You have completed another {_durationSeconds} seconds of the {_activityName} for a total of {_totalDuration} seconds!");
     }
 
 }

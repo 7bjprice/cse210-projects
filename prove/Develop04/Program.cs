@@ -8,6 +8,9 @@ class Program
     static void Main(string[] args)
     {
         Activity currentActivity = new();
+        BreathingActivity breathe = new();
+        ReflectionActivity reflect = new();
+        ListingActivity listing = new();
         while (true)
         {
         Console.WriteLine("Menu Options:");
@@ -20,28 +23,28 @@ class Program
             switch (_userInput)
             {
                 case 1:
-                    currentActivity = new BreathingActivity();
+                    breathe.StartActivity();
+                    breathe.EndActivity();
                     break;
 
                 case 2:
-                    currentActivity = new ReflectionActivity();
+                    reflect.StartActivity();
+                    reflect.EndActivity();
                     break;
 
                 case 3:
-                    currentActivity = new ListingActivity(); 
+                    listing.StartActivity();
+                    listing.EndActivity();
                     break;
 
                 case 4:
                     return;
 
                 default:
-                    Console.WriteLine("Invalid choice. Press any key to continue.");
+                    Console.WriteLine("Invalid option. Press any button to continue.");
                     Console.ReadLine();
                     continue;
             }
-            currentActivity.StartActivity();
-            currentActivity.EndActivity();
-
         }
     }
 }

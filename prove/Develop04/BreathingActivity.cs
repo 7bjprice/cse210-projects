@@ -30,14 +30,8 @@ class BreathingActivity : Activity
 
         if (remainingTime > 0)
         {
-            Console.WriteLine("Completing with a final partial breath.");
-            DisplayInhale(Math.Min(6, remainingTime));
-            remainingTime -= Math.Min(6, remainingTime);
-
-            if (remainingTime > 0)
-            {
-                DisplayExhale(remainingTime);
-            }
+            DisplayInhale(remainingTime * 3/5);
+            DisplayExhale(remainingTime * 2/5);
         }
 
     }
@@ -51,6 +45,7 @@ class BreathingActivity : Activity
             Thread.Sleep(1000);
             Console.Write("\b \b");
         }
+        Console.WriteLine();
     }
 
     public void DisplayExhale(int duration)
@@ -62,5 +57,6 @@ class BreathingActivity : Activity
             Thread.Sleep(1000);
             Console.Write("\b \b");
         }
+        Console.WriteLine();
     }
 }
