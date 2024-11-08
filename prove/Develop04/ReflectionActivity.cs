@@ -5,6 +5,8 @@ class ReflectionActivity : Activity
 
     private string _currentPrompt;
 
+    private Random _random = new();
+
     // methods
     public ReflectionActivity()
     {
@@ -21,8 +23,7 @@ class ReflectionActivity : Activity
     }
     public string GetRandPrompt()
     {
-        Random rand = new Random();
-        return _listPrompts[rand.Next(_listPrompts.Count)];
+        return _listPrompts[_random.Next(_listPrompts.Count)];
     }
 
     public void DisplayPrompt()
@@ -32,6 +33,28 @@ class ReflectionActivity : Activity
         Console.WriteLine($"--- {_currentPrompt} ---");
         Console.WriteLine("When you have something in mind, press enter to continue.");
         Console.ReadLine();
+    }
+
+        public override void StartActivity()
+    {
+        base.StartActivity();
+        DisplayPrompt();
+        
+        Console.WriteLine("Now ponder on each of the following questions as they relate to this experience.");
+        Console.Write("You may begin in: ");
+        for (int i = 5; i > 0; i--)
+        {
+            Console.Write(i);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+        }
+
+        DateTime startTime = DateTime.Now;
+        while ((DateTime.Now - startTime).TotalSeconds < _durationSeconds)
+        {
+            DisplaySubPrompt();
+        }
+        Console.WriteLine();
     }
 
     public void DisplaySubPrompt()
@@ -49,8 +72,7 @@ class ReflectionActivity : Activity
             "How can you keep this experience in mind in the future?"
         };
 
-        Random rand = new Random();
-        string SubPrompt = SubPrompts[rand.Next(SubPrompts.Count)];
+        string SubPrompt = SubPrompts[_random.Next(SubPrompts.Count)];
         Console.Write($"\n> {SubPrompt} ");
         ShowAnimation();
     }

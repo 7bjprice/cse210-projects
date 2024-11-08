@@ -1,8 +1,8 @@
 class ListingActivity : Activity
 {
     // attributes
-    private string _prompt;
     private int _count;
+    private string _prompt;
 
     // methods
 
@@ -51,14 +51,14 @@ class ListingActivity : Activity
         return _count;
     }
 
-    public void StartActivity()
+    public override void StartActivity()
     {
-        BeginActivity();
+        base.StartActivity();
         DisplayPrompt();
         GetReady();
 
         DateTime start = DateTime.Now;
-        while ((DateTime.Now - start).Milliseconds < _durationSeconds)
+        while ((DateTime.Now - start).TotalSeconds < _durationSeconds)
         {
             Console.Write(">");
             Console.ReadLine();

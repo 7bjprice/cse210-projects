@@ -1,4 +1,4 @@
-class Activity
+public class Activity
 {
     // attributes
     protected string _description;
@@ -21,7 +21,7 @@ class Activity
             {
                 Console.Write(s);
                 Thread.Sleep(500);
-                Console.Write("\b\b");
+                Console.Write("\b \b");
             }
     }
 
@@ -31,7 +31,7 @@ class Activity
         ShowAnimation();
     }
 
-    public void BeginActivity()
+    public virtual void StartActivity()
     {
         Console.Clear();
         Console.WriteLine($"Welcome to the {_activityName}!");
@@ -49,4 +49,5 @@ class Activity
         ShowAnimation();
         Console.WriteLine($"You have completed another {_durationSeconds} seconds of the {_activityName}!");
     }
+
 }

@@ -11,7 +11,7 @@ class Program
         while (true)
         {
         Console.WriteLine("Menu Options:");
-        Console.WriteLine("    1. Start Beathing Activity");
+        Console.WriteLine("    1. Start Breathing Activity");
         Console.WriteLine("    2. Start Reflection Activity");
         Console.WriteLine("    3. Start Listing Activity");
         Console.WriteLine("    4. Quit");
@@ -39,7 +39,6 @@ class Program
                     Console.ReadLine();
                     continue;
             }
-            currentActivity.BeginActivity();
             currentActivity.StartActivity();
             currentActivity.EndActivity();
 
