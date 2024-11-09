@@ -1,6 +1,8 @@
 using System;
 using System.Net.Quic;
 
+// Creativity Requirements: I added a feature that allows the user to see the total time spent on each activity. After an activity is completed it displays the total time that the user has spent in a given activity. Another feature I added, in the Breathing exersise accounts for when a user enters a duration that is not divisible by a breath length. It will display a short breathing exercise to accomodate to their desired time limit.
+
 class Program
 {
     // Field to store the user's menu selection
