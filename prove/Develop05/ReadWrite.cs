@@ -1,4 +1,3 @@
-// Troy and Bryson
 using System.Data;
 class ReadWrite
 {
