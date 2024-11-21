@@ -4,7 +4,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
-// Program Enhancements:
+// Creativity:
 // - Added the ability to remove a goal from the list.
 // - Notifications for successful operations.
 // - Auto-save feature saves to the last used filename.
