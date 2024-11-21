@@ -49,7 +49,7 @@ class ChecklistGoal : Goal
         }
 
         //appends goal onto existing file
-        using (StreamWriter outputFile = new StreamWriter(filename, false))
+        using (StreamWriter outputFile = new StreamWriter(filename, true))
         {
             outputFile.WriteLine($"ChecklistGoal|{_title}|{_description}|{_pointValue}|{_progress}|{_totalProgress}|{_isComplete}|{_bonus}");
         }

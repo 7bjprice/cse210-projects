@@ -4,6 +4,10 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
+// Added an option to remove a goal from the list
+// Added multiple print statements notifying user that functions were successful
+//
+
 class Program
 {
     // Field to store the user's menu selection
@@ -36,9 +40,13 @@ class Program
                 {
                     goals.Add(new SimpleGoal(int.Parse(goalArray[3]), goalArray[1], goalArray[2], bool.Parse(goalArray[4])));
                 }
-                else
+                else if (line.StartsWith("ChecklistGoal|"))
                 {
                     goals.Add(new ChecklistGoal(goalArray[1], goalArray[2], int.Parse(goalArray[3]), int.Parse(goalArray[5]), int.Parse(goalArray[7]), bool.Parse(goalArray[6]), int.Parse(goalArray[4])));
+                }
+                else if (line.StartsWith("SCORE|"))
+                {
+                    _points = int.Parse(goalArray[1]);
                 }
             }
         }
@@ -46,11 +54,26 @@ class Program
         return goals;
     }
 
+    static void WriteScore(string filename, int points)
+    {
+        // ensures user enters a valid filename
+        if (string.IsNullOrEmpty(filename))
+        {
+            throw new ArgumentException("Filename cannot be null or empty.", nameof(filename));
+        }
+
+        //appends goal onto existing file
+        using (StreamWriter outputFile = new StreamWriter(filename, false))
+        {
+            outputFile.WriteLine($"SCORE|{points}");
+        }
+    }
+
     static void Main(string[] args)
     {
         while (true)
         {
-            Console.WriteLine($"You have {_points} points.\n");
+            Console.WriteLine($"\nYou have {_points} points.\n");
 
             // Display menu options for the user
             Console.WriteLine("Menu Options:");
@@ -59,11 +82,12 @@ class Program
             Console.WriteLine("    3. Save Goal");
             Console.WriteLine("    4. Load Goal");
             Console.WriteLine("    5. Record Goal");
-            Console.WriteLine("    6. Quit");
+            Console.WriteLine("    6. Remove goal");
+            Console.WriteLine("    7. Quit");
             Console.Write("Select a choice from the menu: ");
 
             _userInput = int.Parse(Console.ReadLine());
-            Console.Clear();
+
             switch (_userInput)
             {
                 case 1:
@@ -80,7 +104,7 @@ class Program
                         string title = Console.ReadLine();
                         Console.Write("What is a short description of it? ");
                         string description = Console.ReadLine();
-                        Console.Write("What is the amount of _points associated with this goal? ");
+                        Console.Write("What is the amount of points associated with this goal? ");
                         int pointvalue = int.Parse(Console.ReadLine());
 
                         switch (_userInput)
@@ -88,10 +112,12 @@ class Program
                             case 1:
                                 EternalGoal myEternalGoal = new EternalGoal(pointvalue, title, description);
                                 goals.Add(myEternalGoal);
+                                Console.WriteLine("Goal successfully created!");
                                 break;
                             case 2:
                                 SimpleGoal mySimpleGoal = new SimpleGoal(pointvalue, title, description);
                                 goals.Add(mySimpleGoal);
+                                Console.WriteLine("Goal successfully created!");
                                 break;
                             case 3:
                                 Console.Write("How many times does this goal need to be accomplished for a bonus? ");
@@ -100,6 +126,7 @@ class Program
                                 int bonus = int.Parse(Console.ReadLine());
                                 ChecklistGoal myChecklistGoal = new ChecklistGoal(title, description, pointvalue, totalprogress, bonus);
                                 goals.Add(myChecklistGoal);
+                                Console.WriteLine("Goal successfully created!");
                                 break;
                             default:
                                 Console.WriteLine("Invalid option. Press any button to continue.");
@@ -113,11 +140,19 @@ class Program
 
                 case 2:
                     int i = 1;
-                    foreach (Goal g in goals)
+                    Console.WriteLine("Your Goals:");
+                    if (goals.Count() != 0)
                     {
-                        Console.Write($"{i}. ");
-                        g.DisplayGoal();
-                        i++;
+                        foreach (Goal g in goals)
+                        {
+                            Console.Write($"    {i}. ");
+                            g.DisplayGoal();
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There are no goals to display!");
                     }
                     break;
 
@@ -125,16 +160,19 @@ class Program
                     Console.Write("Enter a filename to save to: ");
                     _filename = Console.ReadLine();
                     string defaultfile = _filename;
+                    WriteScore(_filename, _points);
                     foreach (Goal g in goals)
                     {
                         g.WriteGoal(_filename);
                     }
+                    Console.WriteLine("Goals successfully saved!");
                     break;
 
                 case 4:
                     Console.Write("Enter filename to retrieve from: ");
                     string filename1 = Console.ReadLine();
                     goals = ReadGoals(filename1);
+                    Console.WriteLine($"{goals.Count()} goals were successfully loaded.");
                     break;
 
                 case 5:
@@ -162,21 +200,37 @@ class Program
                         if( checklistGoal.GetProgress() == checklistGoal.GetTotalProgress())
                         {
                             _points += checklistGoal.GetBonus();
+                            Console.WriteLine($"You earned a bonus of {checklistGoal.GetBonus()} points!");
                             checklistGoal.SetIsComplete();
                         }
                     }
                     else
                     {
                         SelectedGoal.SetIsComplete();
-                    }
-                    Console.WriteLine($"You now have {_points} _points.");
+                    };
                     break;
 
-                case 6: // Quit the application
+                case 6:
+                    Console.WriteLine("Which goal would you like to remove? ");
+                    int k = 1;
+                    foreach (Goal g in goals)
+                    {
+                        Console.Write($"{k}. ");
+                        g.DisplayGoal();
+                        k++;
+                    }
+                    _userInput = int.Parse(Console.ReadLine());
+                    goals.RemoveAt(_userInput-1);
+                    Console.WriteLine("Goal successfully removed!");
+                    break;
+
+                case 7: // Quit the application
+                    WriteScore(defaultfile="goals.txt", _points);
                     foreach (Goal g in goals)
                     {
                         g.WriteGoal(defaultfile="goals.txt");
                     }
+                    Console.WriteLine("Goals saved!");
                     return;
 
                 default: // Handle invalid input

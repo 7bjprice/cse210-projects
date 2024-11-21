@@ -31,7 +31,7 @@ class EternalGoal : Goal
         }
 
         //appends goal onto existing file
-        using (StreamWriter outputFile = new StreamWriter(filename, false))
+        using (StreamWriter outputFile = new StreamWriter(filename, true))
         {
             outputFile.WriteLine($"EternalGoal|{_title}|{_description}|{_pointValue}|{_progress}");
         }
