@@ -4,9 +4,11 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
+// Creativity:
 // Added an option to remove a goal from the list
 // Added multiple print statements notifying user that functions were successful
-//
+// Added an auto save feature that will save to the last used filename
+// Added a negative Goal feature, when completed points are subtracted.
 
 class Program
 {
@@ -43,6 +45,10 @@ class Program
                 else if (line.StartsWith("ChecklistGoal|"))
                 {
                     goals.Add(new ChecklistGoal(goalArray[1], goalArray[2], int.Parse(goalArray[3]), int.Parse(goalArray[5]), int.Parse(goalArray[7]), bool.Parse(goalArray[6]), int.Parse(goalArray[4])));
+                }
+                else if (line.StartsWith("NegativeGoal|"))
+                {
+                    goals.Add(new NegativeGoal(goalArray[1], goalArray[2], int.Parse(goalArray[3]), int.Parse(goalArray[4])));
                 }
                 else if (line.StartsWith("SCORE|"))
                 {
@@ -97,6 +103,7 @@ class Program
                         Console.WriteLine("    1. Eternal Goal");
                         Console.WriteLine("    2. Simple Goal");
                         Console.WriteLine("    3. Checklist Goal");
+                        Console.WriteLine("    4. Negative Goal");
                         Console.Write("Which type of goal would you like to create? ");
                         _userInput = int.Parse(Console.ReadLine());
 
@@ -126,6 +133,11 @@ class Program
                                 int bonus = int.Parse(Console.ReadLine());
                                 ChecklistGoal myChecklistGoal = new ChecklistGoal(title, description, pointvalue, totalprogress, bonus);
                                 goals.Add(myChecklistGoal);
+                                Console.WriteLine("Goal successfully created!");
+                                break;
+                            case 4:
+                                NegativeGoal myNegativeGoal = new NegativeGoal(title, description, pointvalue);
+                                goals.Add(myNegativeGoal);
                                 Console.WriteLine("Goal successfully created!");
                                 break;
                             default:
@@ -159,6 +171,10 @@ class Program
                 case 3:
                     Console.Write("Enter a filename to save to: ");
                     _filename = Console.ReadLine();
+                    if (string.IsNullOrEmpty(_filename))
+                    {
+                        throw new ArgumentException("Filename cannot be null or empty.", nameof(_filename));
+                    }
                     string defaultfile = _filename;
                     WriteScore(_filename, _points);
                     foreach (Goal g in goals)
@@ -171,6 +187,10 @@ class Program
                 case 4:
                     Console.Write("Enter filename to retrieve from: ");
                     string filename1 = Console.ReadLine();
+                    if (string.IsNullOrEmpty(filename1))
+                    {
+                        throw new ArgumentException("Filename cannot be null or empty.", nameof(filename1));
+                    }
                     goals = ReadGoals(filename1);
                     Console.WriteLine($"{goals.Count()} goals were successfully loaded.");
                     break;
@@ -184,9 +204,18 @@ class Program
                         g.DisplayGoal();
                         j++;
                     }
+                    Console.Write("Your choice: ");
                     _userInput = int.Parse(Console.ReadLine());
                     Goal SelectedGoal = goals[_userInput-1];
-                    Console.WriteLine($"Congratulations! You have earned {SelectedGoal.GetPointValue()} points!");
+                    if (!(SelectedGoal is NegativeGoal))
+                    {
+                        Console.WriteLine($"Congratulations! You have earned {SelectedGoal.GetPointValue()} points!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Shame on you! You have lost {Math.Abs(SelectedGoal.GetPointValue())} points.");
+                    }
+
                     _points += SelectedGoal.GetPointValue();
 
                     if (SelectedGoal is EternalGoal eternalGoal)
@@ -204,6 +233,10 @@ class Program
                             checklistGoal.SetIsComplete();
                         }
                     }
+                    else if (SelectedGoal is NegativeGoal negativeGoal)
+                    {
+                        negativeGoal.IncrementProgress();
+                    }
                     else
                     {
                         SelectedGoal.SetIsComplete();
@@ -219,6 +252,7 @@ class Program
                         g.DisplayGoal();
                         k++;
                     }
+                    Console.Write("Your choice: ");
                     _userInput = int.Parse(Console.ReadLine());
                     goals.RemoveAt(_userInput-1);
                     Console.WriteLine("Goal successfully removed!");
