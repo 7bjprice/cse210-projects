@@ -33,6 +33,7 @@ class Video
         Comment newComment = new(text, author, date);
         comments.Add(newComment);
     }
+
     public void DisplayVideo()
     {
         Console.WriteLine( "╔══════════════════════════════════════╗");
