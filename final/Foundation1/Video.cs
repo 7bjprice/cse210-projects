@@ -23,21 +23,6 @@ class Video
         _lengthSeconds = length;
     }
 
-    public string GetTitle()
-    {
-        return _title;
-    }
-
-    public int GetLength()
-    {
-        return _lengthSeconds;
-    }
-
-    public string GetAuthor()
-    {
-        return _author;
-    }
-
     public int GetNumComments()
     {
         return comments.Count();
