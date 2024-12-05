@@ -23,6 +23,10 @@ class Order
         {
             total += p.CalcProductCost();
         }
+        if (_customer.isDomestic())
+            total += 5;
+        else
+            total += 35;
         return total;
     }
 

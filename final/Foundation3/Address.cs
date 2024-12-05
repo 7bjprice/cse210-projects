@@ -18,11 +18,6 @@ class Address
         _country = country;
     }
 
-    public bool GetIsDomestic()
-    {
-        return _country == "United States" || _country == "USA";
-    }
-
     public string GetFullAddress()
     {
         return $"{_streetAddress}\n{_city}, {_state} {_country}";
