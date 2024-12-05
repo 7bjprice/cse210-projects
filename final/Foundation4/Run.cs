@@ -13,16 +13,16 @@ class Run : Activity
 
     public override double CalcSpeed()
     {
-        
+        return _distance / (_durationMinutes / 60);
     }
 
     public override double CalcDistance()
     {
-
+        return _distance;
     }
 
     public override double CalcPace()
     {
-
+        return _durationMinutes / _distance;
     }
 }

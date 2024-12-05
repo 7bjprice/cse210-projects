@@ -18,8 +18,8 @@ abstract class Activity
 
     public abstract double CalcPace();
 
-    public void DisplaySummary()
+    public string GetSummary()
     {
-
+        return $"{_date,-15} {this.GetType().Name,-4} ({_durationMinutes} min): Distance {CalcDistance(),4} km, Speed: {CalcSpeed(),3} kph, Pace: {CalcPace(),3} min per km";
     }
 }
