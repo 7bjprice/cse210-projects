@@ -17,15 +17,15 @@ class Program
 
         Event outdoor1 = new OutdoorGathering("Party", "A big party with food", "4/20/2025", "8:00pm", "7bjprice@gmail.com");
         outdoor1.CreateAddress("456 Blackberry Rd", "Rexburg", "ID");
-        _events.Add(reception1);
+        _events.Add(outdoor1);
 
         foreach (Event e in _events)
         {
-            Console.WriteLine("----------");
+            Console.WriteLine("\n");
             e.DisplayShortDescription();
-            Console.WriteLine("----------");
+            Console.WriteLine("..........................");
             e.DisplayStandardDetails();
-            Console.WriteLine("----------");
+            Console.WriteLine("..........................");
             if (e is Lecture l)
             {
                 l.DisplayFullDetails();
@@ -38,7 +38,7 @@ class Program
             {
                 o.DisplayFullDetails();
             }
-            Console.WriteLine("----------");
+            Console.WriteLine("\n");
 
         }
 

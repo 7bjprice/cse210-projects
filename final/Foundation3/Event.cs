@@ -28,7 +28,7 @@ class Event
     }
     public void DisplayStandardDetails()
     {
-        Console.WriteLine($"{_eventTitle} {_date} {_time} \n{_address.GetFullAddress()}\n> {_description}");
+        Console.WriteLine($"{_eventTitle} {_date} {_time}\n{_address.GetFullAddress()}\n{_description}");
     }
 
     public void DisplayShortDescription()
